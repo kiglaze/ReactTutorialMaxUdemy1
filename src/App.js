@@ -46,6 +46,9 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <ul>
+                    {this.state.persons.map(person => {
+                        return <li><Person name={person.name} age={person.name} /></li>
+                    })}
                     <li>
                         <Person
                             name={this.state.persons[0].name}
