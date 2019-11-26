@@ -9,7 +9,8 @@ class App extends Component {
             {name: "Jon", age: 29},
             {name: "Lydia", age: 28}
         ],
-        otherState: "some other value"
+        otherState: "some other value",
+        showPersons: false
     };
 
     switchNameHandler = (newName) => {
@@ -26,7 +27,11 @@ class App extends Component {
             {name: event.target.value, age: 29},
             {name: "Lydia", age: 28}
         ] });
-    }
+    };
+
+    togglePersonsHandler = () => {
+        this.setState({showPersons: !this.state.showPersons});
+    };
 
     render() {
         const style = {
@@ -40,21 +45,33 @@ class App extends Component {
             <div className="App">
                 <h1>Hi, this is a React App.</h1>
                 <p>This is really working...</p>
-                <button style={style} onClick={this.switchNameHandler.bind(this, "Sandra")}>Switch Name</button>
-                <Person
-                    name={this.state.persons[0].name}
-                    age={this.state.persons[0].age}
-                />
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, "Heather")}
-                    changed={this.nameChangedHandler}
-                >My hobbies include climbing and listening to AWS lectures online. I also like going to CBC with Ryan and Scott and attempting to put my hair in a ponytail.</Person>
-                <Person
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}
-                />
+                <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+                { (this.state.showPersons) ?
+                    <ul>
+                        <li>
+                            <Person
+                                name={this.state.persons[0].name}
+                                age={this.state.persons[0].age}
+                            />
+                        </li>
+                        <li>
+                            <Person
+                                name={this.state.persons[1].name}
+                                age={this.state.persons[1].age}
+                                click={this.switchNameHandler.bind(this, "Heather")}
+                                changed={this.nameChangedHandler}
+                            >My hobbies include climbing and listening to AWS lectures online. I also like going to CBC
+                                with Ryan and Scott and attempting to put my hair in a ponytail.</Person>
+                        </li>
+                        <li>
+                            <Person
+                                name={this.state.persons[2].name}
+                                age={this.state.persons[2].age}
+                            /> 
+                        </li>
+                    </ul>
+                    : null
+                }
             </div>
         );
         // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work?'));
