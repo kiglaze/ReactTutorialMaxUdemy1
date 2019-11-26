@@ -33,6 +33,12 @@ class App extends Component {
         this.setState({showPersons: !this.state.showPersons});
     };
 
+    deletePersonHandler = (personIndex) => {
+        const persons = [...this.state.persons];
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
+    };
+
     render() {
         const style = {
             backgroundColor: 'white',
@@ -46,30 +52,37 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <ul>
-                    {this.state.persons.map(person => {
-                        return <li><Person name={person.name} age={person.name} /></li>
+                    {this.state.persons.map((person, index) => {
+                        return (
+                            <li>
+                                <Person
+                                    click={this.deletePersonHandler.bind(this, index)}
+                                    name={person.name}
+                                    age={person.name} />
+                            </li>
+                        );
                     })}
-                    <li>
-                        <Person
-                            name={this.state.persons[0].name}
-                            age={this.state.persons[0].age}
-                        />
-                    </li>
-                    <li>
-                        <Person
-                            name={this.state.persons[1].name}
-                            age={this.state.persons[1].age}
-                            click={this.switchNameHandler.bind(this, "Heather")}
-                            changed={this.nameChangedHandler}
-                        >My hobbies include climbing and listening to AWS lectures online. I also like going to CBC
-                            with Ryan and Scott and attempting to put my hair in a ponytail.</Person>
-                    </li>
-                    <li>
-                        <Person
-                            name={this.state.persons[2].name}
-                            age={this.state.persons[2].age}
-                        />
-                    </li>
+                    {/*<li>*/}
+                    {/*    <Person*/}
+                    {/*        name={this.state.persons[0].name}*/}
+                    {/*        age={this.state.persons[0].age}*/}
+                    {/*    />*/}
+                    {/*</li>*/}
+                    {/*<li>*/}
+                    {/*    <Person*/}
+                    {/*        name={this.state.persons[1].name}*/}
+                    {/*        age={this.state.persons[1].age}*/}
+                    {/*        click={this.switchNameHandler.bind(this, "Heather")}*/}
+                    {/*        changed={this.nameChangedHandler}*/}
+                    {/*    >My hobbies include climbing and listening to AWS lectures online. I also like going to CBC*/}
+                    {/*        with Ryan and Scott and attempting to put my hair in a ponytail.</Person>*/}
+                    {/*</li>*/}
+                    {/*<li>*/}
+                    {/*    <Person*/}
+                    {/*        name={this.state.persons[2].name}*/}
+                    {/*        age={this.state.persons[2].age}*/}
+                    {/*    />*/}
+                    {/*</li>*/}
                 </ul>
             );
         }
