@@ -5,28 +5,12 @@ import Person from './Person/Person';
 class App extends Component {
     state = {
         persons: [
-            {name: "Iris", age: 27},
-            {name: "Jon", age: 29},
-            {name: "Lydia", age: 28}
+            {id: 1, name: "Iris", age: 27},
+            {id: 2, name: "Jon", age: 29},
+            {id: 3, name: "Lydia", age: 28}
         ],
         otherState: "some other value",
         showPersons: false
-    };
-
-    switchNameHandler = (newName) => {
-        this.setState({ persons: [
-            {name: "Iris", age: 28},
-            {name: "Jonathan", age: 29},
-            {name: newName, age: 28}
-        ] });
-    };
-
-    nameChangedHandler = (event) => {
-        this.setState({ persons: [
-            {name: "Iris", age: 28},
-            {name: event.target.value, age: 29},
-            {name: "Lydia", age: 28}
-        ] });
     };
 
     togglePersonsHandler = () => {
@@ -51,39 +35,17 @@ class App extends Component {
         let persons = null;
         if (this.state.showPersons) {
             persons = (
-                <ul>
+                <div>
                     {this.state.persons.map((person, index) => {
                         return (
-                            <li>
-                                <Person
-                                    click={this.deletePersonHandler.bind(this, index)}
-                                    name={person.name}
-                                    age={person.name} />
-                            </li>
+                            <Person
+                                key={person.id}
+                                click={this.deletePersonHandler.bind(this, index)}
+                                name={person.name}
+                                age={person.name} />
                         );
                     })}
-                    {/*<li>*/}
-                    {/*    <Person*/}
-                    {/*        name={this.state.persons[0].name}*/}
-                    {/*        age={this.state.persons[0].age}*/}
-                    {/*    />*/}
-                    {/*</li>*/}
-                    {/*<li>*/}
-                    {/*    <Person*/}
-                    {/*        name={this.state.persons[1].name}*/}
-                    {/*        age={this.state.persons[1].age}*/}
-                    {/*        click={this.switchNameHandler.bind(this, "Heather")}*/}
-                    {/*        changed={this.nameChangedHandler}*/}
-                    {/*    >My hobbies include climbing and listening to AWS lectures online. I also like going to CBC*/}
-                    {/*        with Ryan and Scott and attempting to put my hair in a ponytail.</Person>*/}
-                    {/*</li>*/}
-                    {/*<li>*/}
-                    {/*    <Person*/}
-                    {/*        name={this.state.persons[2].name}*/}
-                    {/*        age={this.state.persons[2].age}*/}
-                    {/*    />*/}
-                    {/*</li>*/}
-                </ul>
+                </div>
             );
         }
 
